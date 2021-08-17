@@ -1,0 +1,141 @@
+Hibernate: 
+
+       Java classes whose objects or instances will be stored in database tables are called persistent classes in Hibernate. Hibernate works best if these classes follow some simple rules, also known as the Plain Old Java Object (POJO) programming model.
+
+       1) Create Project: 
+
+                             step1: Create the Persistent class.
+
+                             step2: Create the configuration file.
+
+                             step3: Create the main file the class that retrieves or stores the persistent object.
+
+     2) Persistent class: 
+ 
+                           Follow some rules: 
+                    
+                                              i) no-arg constructor.
+         
+                                             ii)Provide an identifier property.
+
+                                            iii) Declare getter and setter methods.
+
+                                            iv) Prefer non-final class.
+
+     3) Persistent Class Annotations:
+
+                  @Entity Annotation: 
+                                   
+                                ->  The EJB 3 standard annotations are contained in the javax.persistence package, so we import this package as 	                                     first step. Second, we used the @Entity annotation to the Employee class, which marks this class as an entity bean,                                       so it must have a no-argument constructor that is visible with at least protected scope.
+
+                 @Table Annotation:
+
+                              ->  The @Table annotation allows you to specify the details of the table that will be used to persist the entity in the                                              database.
+                              ->  The @Table annotation provides four attributes, allowing you to override the name of the table, its catalogue, and its                                      schema, and enforce unique constraints on columns in the table. For now, we are using just table name, which is                                       EMPLOYEE.
+
+                  @Column Annotation
+
+                              ->  The @Column annotation is used to specify the details of the column to which a field or property will be mapped.      
+             
+                            You can use column annotation with the following most commonly used attributes :
+
+                                                  ->  name attribute permits the name of the column to be explicitly specified.
+
+                                                  ->  length attribute permits the size of the column used to map a value particularly for a String value.
+
+                                                  ->  nullable attribute permits the column to be marked NOT NULL when the schema is generated.
+
+                                                  ->  unique attribute permits the column to be marked as containing only unique values.
+
+     4) Cache Memory:
+
+                             -> Caching is a mechanism to enhance the performance of a system. Cache memory stores recently used data items in 
+                                  order to reduce the number of database hits as much as possible.
+
+                           First-level Cache (default):
+ 
+                                              -> The first-level cache is the Session cache and is a mandatory cache through which all requests must pass.                                                  
+                                              -> The Session object keeps an object under its own power before committing it to the database.
+    
+                          Second-level Cache: 
+
+                                             -> The second level cache can be configured on a per-class and per-collection basis and mainly responsible for                                                   
+                                                  caching objects across sessions.
+
+     5) HQL(Hibernate Query Language): 
+                  
+                     -->  Hibernate Query Language (HQL) is same as SQL (Structured Query Language) but it doesn't depends on the table of the                            database. Instead of table name, we use class name in HQL. So it is database independent query language
+
+                    -->  Advantage of HQL
+
+                                           There are many advantages of HQL. They are as follows:
+
+                                                                      -->  database independent
+                                                                      -->  supports polymorphic queries
+                                                                      -->  easy to learn for Java Programmer
+
+                  -->  Query Interface
+
+                                 -->  It is an object oriented representation of Hibernate Query. The object of Query can be obtained by calling the                                                 createQuery() method Session interface.
+
+                                -->  The query interface provides many methods. There is given commonly used methods:
+
+                                               -->  public int executeUpdate() is used to execute the update or delete query.
+       		            -->  public List list() returns the result of the ralation as a list.		
+ 		            -->  public Query setFirstResult(int rowno) specifies the row number from where record will be retrieved.
+    		            -->  public Query setMaxResult(int rowno) specifies the no. of records to be retrieved from the relation                                                      (table).
+    	                             -->  public Query setParameter(int position, Object value) it sets the value to the JDBC style query parameter.
+    	                             -->  public Query setParameter(String name, Object value) it sets the value to a named query parameter.
+
+     6) HCQL (Hibernate Criteria Query Language):
+
+                           -->  The Hibernate Criteria Query Language (HCQL) is used to fetch the records based on the specific criteria. The                                              Criteria interface provides methods to apply criteria such as retreiving all the records of table whose salary is greater                                     than 50000 etc. 
+
+                           --> Restriction class contains logical operation operators ( <, >, <=, >=, like, between, !=, = , etc.. )
+
+                           --> Order class contains asc and descending order operation. Note: must declare org.hibernate.criterion.Order                                                      criteriaobject.addOrder(org.hibernate.criterion.Order.desc("Name"));
+
+                           --> Projections & Aggregations:
+                                                 
+                                              -->  The Criteria API provides the org.hibernate.criterion.Projections class.
+
+                                             -->  which can be used to get average, maximum, or minimum of the property values. The Projections class is                                                      similar to the Restrictions class, in that it provides several static factory methods for obtaining Projection                                                      instances.
+
+                           -->  Advantage of HCQL
+
+                                          -->  The HCQL provides methods to add criteria, so it is easy for the java programmer to add criteria. The java                                                       programmer is able to add many criteria on a query.
+
+                          -->  Criteria Interface
+
+                                          -->  The Criteria interface provides many methods to specify criteria. The object of Criteria can be obtained by                                                      calling the createCriteria() method of Session interface. 
+
+--> The commonly used methods of Restrictions class are as follows:
+    public static SimpleExpression lt(String propertyName,Object value) sets the less than constraint to the given property.
+    public static SimpleExpression le(String propertyName,Object value) sets the less than or equal constraint to the given property.
+    public static SimpleExpression gt(String propertyName,Object value) sets the greater than constraint to the given property.
+    public static SimpleExpression ge(String propertyName,Object value) sets the greater than or equal than constraint to the given property.
+    public static SimpleExpression ne(String propertyName,Object value) sets the not equal constraint to the given property.
+    public static SimpleExpression eq(String propertyName,Object value) sets the equal constraint to the given property.
+    public static Criterion between(String propertyName, Object low, Object high) sets the between constraint.
+    public static SimpleExpression like(String propertyName, Object value) sets the like constraint to the given property.
+
+
+     7) Hibernate Inheritance:  ( Refer: https://www.devglan.com/hibernate/hibernate-inheritance-example )
+
+                --> As we know Java is an object oriented language and hence it supports inheritance. In java inheritance, there can be IS-A or                       HAS-A relationship. But when we come to any relational model, it supports only HAS-A relationship. To overcome this                                  mimmatch hibernate provides different inheritance strategy
+
+              --> Types: 
+                          
+                           1. Single Table Strategy
+
+                           2. Table Per Class Strategy
+
+                           3. Joined Table Strategy
+
+           --> Now let us discuss about these 3 strategies one by one. In the examples below, we have 3 different entities. The parent entity                        Employee.java is being extended by 2 other entities PermanentEmployee.java and ContractEmployee.java.
+
+         --> Single Table Strategy
+
+                     i) In case of single table strategy, there is a single table created per inheritance hierachy. For example, we have Employee                                 class being extended by 2 others classes but when it comes to single table strategy a single table will be created representing                          all the classes per inheritance hieracy  and this table will contain all the data related to either Employee or                                                      ContractEmployee or PermanentEmployee.
+
+                   ii) So, the question arises as if all the entries are made in a single table then how can we identify those rows from object                                      perspective. For this, hbernate provides a Discriminator Type(DType) column which helps to differentiate between these                               records. This configuration is completely annotation based. So let us define our entities and implement hibernate inheritance                        with Single Table Strategy.
