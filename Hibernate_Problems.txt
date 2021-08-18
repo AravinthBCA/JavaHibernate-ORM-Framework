@@ -1,0 +1,56 @@
+Hibernate Framework: 
+
+      1) Common check: 
+                             
+                            i) check Hibernate dependencie version.
+
+                           ii) check mysql dependencie version.
+
+                          iii) check database started or not.
+
+
+      2) Step to crate Sample Hibernate Project: 
+                       
+                               i) Create Persistant class file
+ 
+                              ii) Create Configuration file
+
+                             iii) Create Session File
+
+     3) 'test.player' doesn't exist (Table doesn't exit error) :
+
+                             i) Goto Configuration file change the below statement
+
+                                 Change: <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+                                 To:         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property> 
+                                           
+                                       (or) <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+     4) Unable to locate Persistance class: 
+
+                           -> Please check your main file Persistance class name is correct (or) not.
+
+     5) HQL operation table is not mapped problem:
+
+                          -> HQL query statement not allowed table name because it's support database independent query language.
+
+                          -> Query statement table name replace by Persistance class name.
+ 
+                         From:    query = "from Player e where e.name = :name"             (Player is a TableName, :name is variable)
+
+                            To:      query = "from Employee e where e.name= :name"       (Employee is Persistance Class Name)
+
+     6) HCQL operation The method desc(String) is undefined for the type MysqlxCrud.Order:
+
+                          From:   cr.addOrder(Order.desc("playerName"));
+
+                          To:  c.addOrder(org.hibernate.criterion.Order.desc("playerName"));
+
+     7) Unkown Entity:  (Reference = https://www.javatpoint.com/hibernate-table-per-hierarchy-using-annotation-                                                                                 tutorial-example)
+
+                          -> Please once check full program step-by-step.
+
+                         -> Check all class declare @Entity annotation.
+
+                         -> Parent class only contains @Table(name) Annotation.
