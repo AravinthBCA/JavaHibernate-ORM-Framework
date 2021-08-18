@@ -2,10 +2,10 @@ package com.javatpoint.mypackage;
 import javax.persistence.*;  
 @Entity  
 @Table(name="contractemployee102")  
-//@AttributeOverrides({  
-//    @AttributeOverride(name="id", column=@Column(name="id")),  
-//    @AttributeOverride(name="name", column=@Column(name="name"))  
-//})  
+@AttributeOverrides({  
+    @AttributeOverride(name="id", column=@Column(name="id")),  
+    @AttributeOverride(name="name", column=@Column(name="name"))  
+})  
 public class Contract_Employee extends Employee{  
       
     @Column(name="pay_per_hour")  
