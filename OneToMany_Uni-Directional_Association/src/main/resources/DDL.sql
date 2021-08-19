@@ -1,0 +1,20 @@
+CREATE TABLE departments
+(
+   RECORD_ID  INT            NOT NULL AUTO_INCREMENT,
+   NAME       VARCHAR(255),
+   PRIMARY KEY (RECORD_ID)
+)
+ENGINE=InnoDB;
+CREATE TABLE employees
+(
+   RECORD_ID  INT            NOT NULL AUTO_INCREMENT,
+   AGE        INT,
+   NAME       VARCHAR(255),
+   DEPT_ID    INT,
+   PRIMARY KEY (RECORD_ID)
+)
+ENGINE=InnoDB;
+
+ALTER TABLE employees
+  ADD CONSTRAINT FK_j1ryo80krj2mrd97datx3hdry FOREIGN KEY (DEPT_ID)
+  REFERENCES departments (RECORD_ID)
